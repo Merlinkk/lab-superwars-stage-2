@@ -21,27 +21,49 @@ const PLAYERS = [
     "Slingo"
 ];
 
+// getting random strength
+const getRandomStrength = () => {
+    // Return a random integer (0,100]
+    // Note: You can use Math.random() and Math.ceil()
+    let randomstr = Math.ceil(Math.random() * 100);
+    return randomstr;
+}
+
 // initialize players with image and strength
 const initPlayers = (players) => {
     let detailedPlayers = [];
     // Create players using for loop
     // Type your code here
 
-    return detailedPlayers;
-}
+    for(let i=0;i<players.length;i++){
+        let playerObject = {
+            name:players[i],
+            strength:getRandomStrength(),
+            image:`images/super-${i+1}.png`,
+            // type: i%2==0?"hero":"villian"
+        };
+        if(i%2==0){playerObject.type = "hero";}else{playerObject.type = "villain"}
+        detailedPlayers.push(playerObject);
+    }
 
-// getting random strength
-const getRandomStrength = () => {
-    // Return a random integer (0,100]
-    // Note: You can use Math.random() and Math.ceil()
-}
+    return detailedPlayers;
+};
+
+
 
 const buildPlayers = (players, type) => {
-    let fragment = '';
+    let fragment = "";
 
     // Loop through players and accumulate HTML template
     // depending of type of player(hero|villain)
     // Type your code here
+    for(let i=0;i<players.length;i++){
+        if(players[i].type === type ){
+            let outCard = `<div class="player"><img src="${players[i].image}" alt=""><div class="name">${players[i].name}</div><div class="strength">${players[i].strength}</div></div>`
+            fragment += outCard
+        }
+        
+    }
 
     return fragment;
 }
